@@ -10,6 +10,8 @@ let leftimg;
 let centerimg;
 let rightimg;
 //global 
+
+//global 
 let leftImgEle=document.getElementById('left1-img');
 let center1ImgEle=document.getElementById('center1-img');
 let rightImgEle=document.getElementById('right1-img');
@@ -21,6 +23,7 @@ this.source=source;
 
 EveryBusMall.push(this);
 this.votes=0;
+this.viewed=0;
 }
 
 new BusmallImgs('bag','imags/bag.jpg');
@@ -78,8 +81,11 @@ while(leftimg===centerimg || leftimg===rightimg || centerimg===rightimg){
 
 
  leftImgEle.src = EveryBusMall[leftimg].source;
+ EveryBusMall[leftimg].viewed++;
  center1ImgEle.src = EveryBusMall[centerimg].source;
+ EveryBusMall[centerimg].viewed++
  rightImgEle.src= EveryBusMall[rightimg].source;
+ EveryBusMall[rightimg].viewed++
 }
 RenderThreeImgs();
 
@@ -116,17 +122,16 @@ center1ImgEle.removeEventListener('click',yourclick)
 rightImgEle.removeEventListener('click',yourclick)
     }
     
-    
-for (let i = 0; i < EveryBusMall.length; i++) {
     let thelist=document.getElementById('result');
-    let liEle=document.createElement('li');
+    
+    let liEle;
+for (let i = 0; i < EveryBusMall.length; i++) {
+    liEle=document.createElement('li');
     thelist.appendChild(liEle);
-    liEle.textContent=`${EveryBusMall[i].name} has ${EveryBusMall[i].votes} +votes`;
+    
+    liEle.textContent=`${EveryBusMall[i].name} has ${EveryBusMall[i].votes} votes, and has been viewed${EveryBusMall[i].viewed}`;
     
 }
-
-
-
 }
 
 
