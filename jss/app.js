@@ -5,24 +5,31 @@ let EveryBusMall=[];
 let maxitries=25;
 //global 
 let yourtriesCounter=0
+//global
+let Imgsviewed=[];
+let busmallvotes=[];
 //global 
 let leftimg;
 let centerimg;
 let rightimg;
 //global 
+let busmallNames=[];
+//global 
+let imagContainer=document.getElementById('images')
 let leftImgEle=document.getElementById('left1-img');
 let center1ImgEle=document.getElementById('center1-img');
 let rightImgEle=document.getElementById('right1-img');
-
+let thelist=document.getElementById('result');
 function BusmallImgs(name,source){
 
 this.name=name;
 this.source=source;
 
 EveryBusMall.push(this);
+busmallNames.push(this.name);
 this.votes=0;
+this.viewed=0;
 }
-
 new BusmallImgs('bag','imags/bag.jpg');
 new BusmallImgs('banana','imags/banana.jpg');
 new BusmallImgs('bathroom','imags/bathroom.jpg');
@@ -78,16 +85,17 @@ while(leftimg===centerimg || leftimg===rightimg || centerimg===rightimg){
 
 
  leftImgEle.src = EveryBusMall[leftimg].source;
+ EveryBusMall[leftimg].viewed++;
  center1ImgEle.src = EveryBusMall[centerimg].source;
+ EveryBusMall[centerimg].viewed++
  rightImgEle.src= EveryBusMall[rightimg].source;
+ EveryBusMall[rightimg].viewed++
 }
 RenderThreeImgs();
 
 
+imagContainer.addEventListener('click',yourclick);
 
-leftImgEle.addEventListener('click',yourclick);
-center1ImgEle.addEventListener('click',yourclick);
-rightImgEle.addEventListener('click',yourclick);
 
 function yourclick(event){
 
@@ -111,24 +119,75 @@ else if(event.target.id ==='rightimg-img'){
     
 }
 RenderThreeImgs();
- } else{leftImgEle.removeEventListener('click',yourclick)
-center1ImgEle.removeEventListener('click',yourclick)
-rightImgEle.removeEventListener('click',yourclick)
+ } else{imagContainer.removeEventListener('click',yourclick);
+
+
+
+ for (let i = 0; i <EveryBusMall.length; i++) {
+    busmallvotes.push(EveryBusMall[i].votes);
+    Imgsviewed.push(EveryBusMall[i].viewed++);
+ }
+ theChart();
     }
     
     
-for (let i = 0; i < EveryBusMall.length; i++) {
-    let thelist=document.getElementById('result');
-    let liEle=document.createElement('li');
-    thelist.appendChild(liEle);
-    liEle.textContent=`${EveryBusMall[i].name} has ${EveryBusMall[i].votes} +votes`;
     
+//     let liEle;
+// for (let i = 0; i < EveryBusMall.length; i++) {
+//     liEle=document.createElement('li');
+//     thelist.appendChild(liEle);
+    
+//     liEle.textContent=`${EveryBusMall[i].name} has ${EveryBusMall[i].votes} votes, and has been viewed${EveryBusMall[i].viewed}`;
+    
+// }
+
+
+
+
+    
+
 }
 
 
 
+
+function theChart(){
+    let ctx = document.getElementById('myChart').getContext('2d');
+let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels:busmallNames,
+        datasets: [{
+            label: '# of Votes',
+            data:busmallvotes ,
+            backgroundColor: 'red',
+            
+               
+                
+                
+            
+            borderColor:
+                'rgba(153, 102, 255, 1)',
+                
+            
+            borderWidth: 1
+        },{
+            label: '# of images viewed',
+           backgroundColor:'gray',
+           borderColor:'blue',
+           data:Imgsviewed ,
+           type: 'line',
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+
 }
-
-
-
-
