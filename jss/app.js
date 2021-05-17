@@ -5,6 +5,7 @@ let EveryBusMall=[];
 let maxitries=25;
 //global 
 let yourtriesCounter=0
+
 //global 
 let leftimg;
 let centerimg;
@@ -12,10 +13,11 @@ let rightimg;
 //global 
 
 //global 
+let imagContainer=document.getElementById('images')
 let leftImgEle=document.getElementById('left1-img');
 let center1ImgEle=document.getElementById('center1-img');
 let rightImgEle=document.getElementById('right1-img');
-
+let thelist=document.getElementById('result');
 function BusmallImgs(name,source){
 
 this.name=name;
@@ -25,7 +27,6 @@ EveryBusMall.push(this);
 this.votes=0;
 this.viewed=0;
 }
-
 new BusmallImgs('bag','imags/bag.jpg');
 new BusmallImgs('banana','imags/banana.jpg');
 new BusmallImgs('bathroom','imags/bathroom.jpg');
@@ -90,10 +91,8 @@ while(leftimg===centerimg || leftimg===rightimg || centerimg===rightimg){
 RenderThreeImgs();
 
 
+imagContainer.addEventListener('click',yourclick);
 
-leftImgEle.addEventListener('click',yourclick);
-center1ImgEle.addEventListener('click',yourclick);
-rightImgEle.addEventListener('click',yourclick);
 
 function yourclick(event){
 
@@ -120,9 +119,11 @@ RenderThreeImgs();
  } else{leftImgEle.removeEventListener('click',yourclick)
 center1ImgEle.removeEventListener('click',yourclick)
 rightImgEle.removeEventListener('click',yourclick)
+
+
     }
     
-    let thelist=document.getElementById('result');
+    
     
     let liEle;
 for (let i = 0; i < EveryBusMall.length; i++) {
