@@ -5,13 +5,15 @@ let EveryBusMall=[];
 let maxitries=25;
 //global 
 let yourtriesCounter=0
-
+//global
+let Imgsviewed=[];
+let busmallvotes=[];
 //global 
 let leftimg;
 let centerimg;
 let rightimg;
 //global 
-
+let busmallNames=[];
 //global 
 let imagContainer=document.getElementById('images')
 let leftImgEle=document.getElementById('left1-img');
@@ -24,6 +26,7 @@ this.name=name;
 this.source=source;
 
 EveryBusMall.push(this);
+busmallNames.push(this.name);
 this.votes=0;
 this.viewed=0;
 }
@@ -116,25 +119,75 @@ else if(event.target.id ==='rightimg-img'){
     
 }
 RenderThreeImgs();
- } else{leftImgEle.removeEventListener('click',yourclick)
-center1ImgEle.removeEventListener('click',yourclick)
-rightImgEle.removeEventListener('click',yourclick)
+ } else{imagContainer.removeEventListener('click',yourclick);
 
 
+
+ for (let i = 0; i <EveryBusMall.length; i++) {
+    busmallvotes.push(EveryBusMall[i].votes);
+    Imgsviewed.push(EveryBusMall[i].viewed++);
+ }
+ theChart();
     }
     
     
     
-    let liEle;
-for (let i = 0; i < EveryBusMall.length; i++) {
-    liEle=document.createElement('li');
-    thelist.appendChild(liEle);
+//     let liEle;
+// for (let i = 0; i < EveryBusMall.length; i++) {
+//     liEle=document.createElement('li');
+//     thelist.appendChild(liEle);
     
-    liEle.textContent=`${EveryBusMall[i].name} has ${EveryBusMall[i].votes} votes, and has been viewed${EveryBusMall[i].viewed}`;
+//     liEle.textContent=`${EveryBusMall[i].name} has ${EveryBusMall[i].votes} votes, and has been viewed${EveryBusMall[i].viewed}`;
     
+// }
+
+
+
+
+    
+
 }
+
+
+
+
+function theChart(){
+    let ctx = document.getElementById('myChart').getContext('2d');
+let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels:busmallNames,
+        datasets: [{
+            label: '# of Votes',
+            data:busmallvotes ,
+            backgroundColor: 'red',
+            
+               
+                
+                
+            
+            borderColor:
+                'rgba(153, 102, 255, 1)',
+                
+            
+            borderWidth: 1
+        },{
+            label: '# of images viewed',
+           backgroundColor:'gray',
+           borderColor:'blue',
+           data:Imgsviewed ,
+           type: 'line',
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+
 }
-
-
-
-
