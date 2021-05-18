@@ -26,6 +26,7 @@ let leftImgEle=document.getElementById('left1-img');
 let center1ImgEle=document.getElementById('center1-img');
 let rightImgEle=document.getElementById('right1-img');
 let thelist=document.getElementById('result');
+let button =document.getElementById('btn')
 
 ////////////////////////////
 
@@ -213,8 +214,8 @@ let myChart = new Chart(ctx, {
             borderWidth: 1
         },{
             label: '# of images viewed',
-           backgroundColor:'gray',
-           borderColor:'blue',
+           backgroundColor:'blue',
+           borderColor:'gray',
            data:Imgsviewed ,
            type: 'line',
         }]
