@@ -26,7 +26,7 @@ let leftImgEle=document.getElementById('left1-img');
 let center1ImgEle=document.getElementById('center1-img');
 let rightImgEle=document.getElementById('right1-img');
 let thelist=document.getElementById('result');
-let button =document.getElementById('btn')
+let button =document.getElementById('bttn')
 
 ////////////////////////////
 
@@ -178,19 +178,6 @@ RenderThreeImgs();
  }
  
     }
-   
-    
-
-
-
-
-
-    
-
-
-
-    
-
 
 function theChart(){
     let ctx = document.getElementById('myChart').getContext('2d');
