@@ -1,29 +1,33 @@
 'use strict';
 //global array
-let EveryBusMall=[];
+
 //global 
 let maxitries=25;
-//global 
 let yourtriesCounter=0;
-//global
-console.log(localStorage);
+
+// console.log(localStorage);
+
 //global
 let Imgsviewed=[];
 let busmallvotes=[];
+let EveryBusMall=[];
+let busmallNames=[];
+
 //global 
 let leftimg;
 let centerimg;
 let rightimg;
 //global 
-let imgArr=[leftimg,centerimg,rightimg];
-//global 
-let busmallNames=[];
+
+
 //global 
 let imagContainer=document.getElementById('images')
 let leftImgEle=document.getElementById('left1-img');
 let center1ImgEle=document.getElementById('center1-img');
 let rightImgEle=document.getElementById('right1-img');
 let thelist=document.getElementById('result');
+
+////////////////////////////
 
 function BusmallImgs(name,source){
 this.name=name;
@@ -34,6 +38,38 @@ EveryBusMall.push(this);
 busmallNames.push(this.name);
 
 }
+////////
+
+function SetTheTotalOfVotes(){
+let votedRound=JSON.stringify(EveryBusMall);
+localStorage.setItem('round',votedRound);
+// console.log('stringygy',votedRound);
+}
+////////
+
+function GetTheTotalOfVotes(){
+let votedString =localStorage.getItem('round');
+
+
+let votedobject =JSON.parse(votedString);
+// console.log(votedobject);
+if(votedobject !== null){
+    EveryBusMall = votedobject;
+
+}
+RenderThreeImgs();
+}
+
+
+
+
+
+
+
+
+
+
+
 new BusmallImgs('bag','imags/bag.jpg');
 new BusmallImgs('banana','imags/banana.jpg');
 new BusmallImgs('bathroom','imags/bathroom.jpg');
@@ -53,26 +89,11 @@ new BusmallImgs('tauntaun','imags/tauntaun.jpg');
 new BusmallImgs('unicorn','imags/unicorn.jpg');
 new BusmallImgs('water-can','imags/water-can.jpg');
 new BusmallImgs('wine-glass','imags/wine-glass.jpg');
-console.log(EveryBusMall);
+// console.log(BusmallImgs);
 
 function RandomIndexImg(){
 return Math.floor(Math.random() * EveryBusMall.length);
 }
-
-//localstorage function:
-BusmallImgs.prototype.storage =function(){
-
-localStorage.setItem('views',yourtriesCounter);
-
-
-
-
-}
-
-
-BusmallImgs.prototype.storage();
-
-
 
 //console.log(RandomIndexImg());
 
@@ -129,46 +150,45 @@ EveryBusMall[leftimg].votes++;
 }
 else if(event.target.id ==='center1-img'){
     EveryBusMall[centerimg].votes++;
-    // console.log('votes center',EveryBusMall[centerimg].votes++);
+    // console.log('votes cener',EveryBusMall[centerimg].votes++);
 }
 
 else if(event.target.id ==='right1-img'){
     EveryBusMall[rightimg].votes++;
-    console.log('votes right',EveryBusMall[rightimg].votes++);
+    // console.log('votes right',EveryBusMall[rightimg].votes++);
     
 }
 RenderThreeImgs();
  } else{imagContainer.removeEventListener('click',yourclick);
 
-
-
- for (let i = 0; i <EveryBusMall.length; i++) {
-    busmallvotes.push(EveryBusMall[i].votes);
-    Imgsviewed.push(EveryBusMall[i].viewed++);
-    
+ let liEle;
+ for (let i = 0; i < EveryBusMall.length; i++) {
+     liEle=document.createElement('li');
+     thelist.appendChild(liEle);
+     
+     liEle.textContent=`${EveryBusMall[i].name} has ${EveryBusMall[i].votes} votes, and has been viewed${EveryBusMall[i].viewed}`;
+     busmallvotes.push(EveryBusMall[i].votes);
+     Imgsviewed.push(EveryBusMall[i].viewed);
+     
  }
  theChart();
+ SetTheTotalOfVotes();
+ 
+ }
+ 
     }
+   
     
-    
-    
-//     let liEle;
-// for (let i = 0; i < EveryBusMall.length; i++) {
-//     liEle=document.createElement('li');
-//     thelist.appendChild(liEle);
-    
-//     liEle.textContent=`${EveryBusMall[i].name} has ${EveryBusMall[i].votes} votes, and has been viewed${EveryBusMall[i].viewed}`;
-    
-// }
+
 
 
 
 
     
 
-}
 
 
+    
 
 
 function theChart(){
@@ -212,3 +232,4 @@ let myChart = new Chart(ctx, {
 
 }
 
+GetTheTotalOfVotes();
