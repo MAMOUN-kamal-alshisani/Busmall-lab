@@ -4,7 +4,9 @@ let EveryBusMall=[];
 //global 
 let maxitries=25;
 //global 
-let yourtriesCounter=0
+let yourtriesCounter=0;
+//global
+console.log(localStorage);
 //global
 let Imgsviewed=[];
 let busmallvotes=[];
@@ -13,6 +15,8 @@ let leftimg;
 let centerimg;
 let rightimg;
 //global 
+let imgArr=[leftimg,centerimg,rightimg];
+//global 
 let busmallNames=[];
 //global 
 let imagContainer=document.getElementById('images')
@@ -20,15 +24,15 @@ let leftImgEle=document.getElementById('left1-img');
 let center1ImgEle=document.getElementById('center1-img');
 let rightImgEle=document.getElementById('right1-img');
 let thelist=document.getElementById('result');
-function BusmallImgs(name,source){
 
+function BusmallImgs(name,source){
 this.name=name;
 this.source=source;
-
-EveryBusMall.push(this);
-busmallNames.push(this.name);
 this.votes=0;
 this.viewed=0;
+EveryBusMall.push(this);
+busmallNames.push(this.name);
+
 }
 new BusmallImgs('bag','imags/bag.jpg');
 new BusmallImgs('banana','imags/banana.jpg');
@@ -54,6 +58,21 @@ console.log(EveryBusMall);
 function RandomIndexImg(){
 return Math.floor(Math.random() * EveryBusMall.length);
 }
+
+//localstorage function:
+BusmallImgs.prototype.storage =function(){
+
+localStorage.setItem('views',yourtriesCounter);
+
+
+
+
+}
+
+
+BusmallImgs.prototype.storage();
+
+
 
 //console.log(RandomIndexImg());
 
@@ -113,9 +132,9 @@ else if(event.target.id ==='center1-img'){
     // console.log('votes center',EveryBusMall[centerimg].votes++);
 }
 
-else if(event.target.id ==='rightimg-img'){
+else if(event.target.id ==='right1-img'){
     EveryBusMall[rightimg].votes++;
-    // console.log('votes right',EveryBusMall[rightimg].votes++);
+    console.log('votes right',EveryBusMall[rightimg].votes++);
     
 }
 RenderThreeImgs();
@@ -126,6 +145,7 @@ RenderThreeImgs();
  for (let i = 0; i <EveryBusMall.length; i++) {
     busmallvotes.push(EveryBusMall[i].votes);
     Imgsviewed.push(EveryBusMall[i].viewed++);
+    
  }
  theChart();
     }
@@ -191,3 +211,4 @@ let myChart = new Chart(ctx, {
 
 
 }
+
