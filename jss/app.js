@@ -58,7 +58,7 @@ if(votedobject !== null){
     EveryBusMall = votedobject;
 
 }
-RenderThreeImgs();
+
 }
 
 
